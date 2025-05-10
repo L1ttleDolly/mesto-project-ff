@@ -22,15 +22,15 @@ function createCard(card, deleteCard) { //функиця добавления к
   return cardElement; //возвращаю 1 заполненную карточку
 }
 
-function placeCards() {// через эту функцию заполняю карточки
+  function placeCards() {// через эту функцию заполняю карточки
   initialCards.forEach(function (card) {
     const cardData = createCard(card, deleteCard);
     cardContainer.append(cardData);
   });
+}
 
-  function deleteCard(cardElement) { //удаление карточки
-    cardElement.remove();
-  }
+function deleteCard(cardElement) { //удаление карточки
+  cardElement.remove();
 }
 
 placeCards(); //вызываб функцию массива
