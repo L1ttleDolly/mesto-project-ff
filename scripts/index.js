@@ -1,8 +1,22 @@
 const $ = document.querySelector.bind(document);
+
 const container = $(".content"); // ограничиваю область поиска
-const addButton = container.querySelector(".profile__add-button"); // кнопка добавления
+
+const addCardButton = container.querySelector(".profile__add-button"); // кнопка добавления
+const editeProfileButton = $('.profile__edit-button') // редактирование профиля
+const closePopup = $('.popup__close') // крестик
+
+const openaPopup = $('.profile__edit-button')
+
+
+const popup = $(".popup") // скрыт
+const isOpenedPopup = $('.popup_is-opened') // открытый попап вместе с ним появляца кнопка  на эту кнопку попат закрыть
+
+
 const cardContainer = $(".places__list"); // контененр карточек
 const cardTemplate = $("#card-template").content;
+
+
 
 function createCard(card, deleteCard) { //функиця добавления карты
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); //клонирую
@@ -29,8 +43,26 @@ function createCard(card, deleteCard) { //функиця добавления к
   });
 }
 
+
 function deleteCard(cardElement) { //удаление карточки
   cardElement.remove();
 }
 
 placeCards(); //вызываб функцию массива
+
+
+ function popupOpen(){
+  popup.style.display = 'flex'
+}
+
+popupOpen()
+
+
+
+// написать функцию открытия модального окна
+// написать слушатель
+
+
+
+
+

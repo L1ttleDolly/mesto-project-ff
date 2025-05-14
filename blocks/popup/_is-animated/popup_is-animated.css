@@ -1,5 +1,5 @@
 .popup_is-animated {
-    display: flex;
+    display: none;
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
