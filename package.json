@@ -2,16 +2,16 @@
   "name": "mesto-project-ff",
   "version": "1.0.0",
   "description": "study project",
-  "homepage": "https://github.com/Andival-Sei/mesto-project-ff#readme",
+  "homepage": "https://github.com/LittleDolly/mesto-project-ff#readme",
   "bugs": {
-    "url": "https://github.com/Andival-Sei/mesto-project-ff/issues"
+    "url": "https://github.com/LittleDolly/mesto-project-ff/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Andival-Sei/mesto-project-ff.git"
+    "url": "git+https://github.com/LittleDolly/mesto-project-ff.git"
   },
   "license": "ISC",
-  "author": "Andival-Sei",
+  "author": "LittleDolly",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
