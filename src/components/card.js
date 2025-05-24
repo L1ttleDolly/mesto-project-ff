@@ -1,4 +1,3 @@
-import {showModal} from "./modal"
 export {createCard, deleteCard, toggleLikeCard}
 
 function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, toggleLikeCard) {
@@ -23,24 +22,16 @@ function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, t
     })
 
     cardImg.addEventListener('click',function (){
-        showModal(modalImg)
         handleCardClick(card)
     })
 
     return cardElement; //возвращаю 1 заполненную карточку
 }
-/**
- * Удаляет карточку из DOM
- * @param {HTMLElement} cardElement - DOM элемент карточки, которую нужно удалить
- */
+
 function deleteCard(cardElement) { //удаление карточки
     cardElement.remove()
 }
 
-/**
- * Переключает состояние кнопки лайка (активное/неактивное)
- * @param {HTMLElement} button - Кнопка лайка, состояние которой нужно переключить
- */
 function toggleLikeCard(button) {
     button.classList.toggle('card__like-button_is-active')
 }

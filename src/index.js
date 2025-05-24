@@ -14,14 +14,19 @@ const buttonProfileEdit = $('.profile__edit-button') //кнопка редакт
 const buttonAddCard = $('.profile__add-button') // плюс добаления карточек
 const buttonsCloseModal = document.querySelectorAll('.popup__close') //все кнопки закрытия
 
-const formElement = $('form[name="edit-profile"]')// форма
-const nameInput = formElement.querySelector('.popup__input_type_name')
-const jobInput = formElement.querySelector('.popup__input_type_description')
+const popup = document.querySelector('.popup')
+
+const formElementProfile = $('form[name="edit-profile"]')// форма
+const nameInput = formElementProfile.querySelector('.popup__input_type_name')
+const jobInput = formElementProfile.querySelector('.popup__input_type_description')
 const formElementCard = $('form[name="new-place"]')
 const nameCardInput = formElementCard.querySelector('.popup__input_type_card-name')
 const cardUrlInput = formElementCard.querySelector('.popup__input_type_url')
 const profileTitleName = $('.profile__title') //заголовок в профиле
 const profileDescription = $('.profile__description') // описание
+
+const popupImg = modalImg.querySelector('.popup__image')
+const imgTitle = modalImg.querySelector('.popup__caption')
 
 placeCards(); //вызываб функцию массива
 
@@ -30,61 +35,23 @@ placeCards(); //вызываб функцию массива
  * @param {Object} card - Объект с данными карточки (name, link)
  */
 function handleCardClick(card) {
-    const popupImg = modalImg.querySelector('.popup__image')
-    const imgTitle = modalImg.querySelector('.popup__caption')
-
     Object.assign(popupImg,
         {
             src: card.link,
             alt: card.name,
         })
     imgTitle.textContent = card.name
+    showModal(modalImg)
 }
-
-/**
- * Размещает начальные карточки на странице из массива initialCards
- */
 
 function placeCards() {// через эту функцию заполняю карточки
     initialCards.forEach(function (card) {
         const cardData = createCard(
-            card,
-            cardTemplate,
-            modalImg,
-            handleCardClick,
-            deleteCard,
-            toggleLikeCard
+            card, cardTemplate, modalImg, handleCardClick, deleteCard, toggleLikeCard
         )
         cardContainer.append(cardData)
     })
 }
-
-/**
- * Создает новую карточку из данных формы и добавляет ее на страницу
- * @param {Event} evt - Событие отправки формы
- */
-
-function makeNewCard(evt) { //функция создания новой карточки
-    evt.preventDefault()
-
-    const nameValue = nameCardInput.value //достаю ввеленное валуе в форму
-    const cardUrl = cardUrlInput.value
-
-    const newCard = { // создаю объект
-        name: nameValue,
-        link: cardUrl,
-    }
-
-    const cardData = createCard(newCard, deleteCard, toggleLikeCard) // кладу в переменную функцию создания с параметрами функций и объекта
-    cardContainer.prepend(cardData)
-
-    const openModal = document.querySelector('.popup_is-opened') //закрытие модалки после сощдания новой карточки
-    hideModal(openModal)
-
-    formElementCard.reset() // очищаю форму
-}
-
-formElementCard.addEventListener('submit', makeNewCard) //вещаю слушатель который после отправки создаст новую карьу
 
 buttonProfileEdit.addEventListener('click', function () {  //открытие по клику
     showModal(modalProfileEdit)
@@ -104,27 +71,43 @@ buttonsCloseModal.forEach(function (button) {
     })
 })
 
-/**
- * Заполняет поля формы редактирования профиля текущими значениями из профиля
- * @description Берет текст из элементов профиля (имя и описание) и вставляет в соответствующие поля ввода формы
- */
+
 function fillProfileForm() { //функция заполнения строк профиля
     nameInput.value = profileTitleName.textContent // берем текст из элемента профиля(титле и описание) и вставляем в поле ввода(инпут валуе)
     jobInput.value = profileDescription.textContent // same
 }
 
-/**
- * Обрабатывает отправку формы редактирования профиля
- * @param {Event} evt - Событие отправки формы
- * @description Обновляет информацию в профиле на основе данных, введенных пользователем в форму
- */
-function handleFormSubmit(evt) {
+function handleFormSubmitProfile(evt) {
     evt.preventDefault() // отменяю дефолтное поведение страницы
     const nameInputValue = nameInput.value // получаем текущее значение инпут валуе, то, что пользователь вел или изменил
     const jobInputValue = jobInput.value
 
     profileTitleName.textContent = nameInputValue// присваеваем текст контент в инпут валуе, т.к. эти данные изменены в форме и должнв отобразитьсч на странице
     profileDescription.textContent = jobInputValue
+
+    hideModal(popup)//закрытие модалки после сощдания новой карточки
 }
 
-formElement.addEventListener('submit', handleFormSubmit) //вешаю слушатель на форму и при отправке вызывается функция, которая обновляет данные
+formElementProfile.addEventListener('submit', handleFormSubmitProfile) //вешаю слушатель на форму и при отправке вызывается функция, которая обновляет данные
+
+function makeNewCard(evt) { //функция создания новой карточки
+    evt.preventDefault()
+
+    const nameValue = nameCardInput.value //достаю ввеленное валуе в форму
+    const cardUrl = cardUrlInput.value
+
+    const newCard = { // создаю объект
+        name: nameValue,
+        link: cardUrl,
+    }
+
+    const cardData = createCard(newCard, cardTemplate, modalImg, handleCardClick, deleteCard, toggleLikeCard) // кладу в переменную функцию создания с параметрами функций и объекта
+    cardContainer.prepend(cardData)
+
+
+    hideModal($('.popup_is-opened')) //закрытие модалки после сощдания новой карточки
+
+    formElementCard.reset() // очищаю форму
+}
+
+formElementCard.addEventListener('submit', makeNewCard) //вещаю слушатель который после отправки создаст новую карьу
