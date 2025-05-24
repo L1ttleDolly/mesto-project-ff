@@ -18,11 +18,11 @@ function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, t
         deleteCard(cardElement) // deletecard - функция
     })
     likeButtonCard.addEventListener('click', function (e) {
-        toggleLikeCard(likeButtonCard)
+        toggleLikeCard(likeButtonCard) //лайк в аргументаъ кнопка лайка
     })
 
     cardImg.addEventListener('click',function (){
-        handleCardClick(card)
+        handleCardClick(card) //
     })
 
     return cardElement; //возвращаю 1 заполненную карточку
@@ -32,7 +32,7 @@ function deleteCard(cardElement) { //удаление карточки
     cardElement.remove()
 }
 
-function toggleLikeCard(button) {
+function toggleLikeCard(button) { // лайк карточки
     button.classList.toggle('card__like-button_is-active')
 }
 
