@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3e6c62e3-6db9-447e-b47e-3c417c3ce96c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2wHCuQ4teUBh5F4OJnWcsKJOhVK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/veeta/dev/mesto-project-ff&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2025.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-WS-251.23774.424" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3e6c62e3-6db9-447e-b47e-3c417c3ce96c" name="Changes" comment="" />
+      <created>1745689334399</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745689334399</updated>
+      <workItem from="1745689336040" duration="383000" />
+      <workItem from="1745720158652" duration="39000" />
+      <workItem from="1747222848025" duration="16191000" />
+      <workItem from="1747245166497" duration="2000" />
+      <workItem from="1747256581321" duration="1808000" />
+      <workItem from="1747258611741" duration="447000" />
+      <workItem from="1747263412003" duration="1713000" />
+      <workItem from="1747335918754" duration="837000" />
+      <workItem from="1747345710734" duration="11626000" />
+      <workItem from="1747412941224" duration="1923000" />
+      <workItem from="1747483424235" duration="1085000" />
+      <workItem from="1747490089578" duration="2388000" />
+      <workItem from="1747495980390" duration="1877000" />
+      <workItem from="1747518209652" duration="571000" />
+      <workItem from="1747584703380" duration="46000" />
+      <workItem from="1747587641451" duration="3411000" />
+      <workItem from="1747591470570" duration="1667000" />
+      <workItem from="1747593240194" duration="2155000" />
+      <workItem from="1747595433831" duration="526000" />
+      <workItem from="1747595991179" duration="920000" />
+      <workItem from="1747669495197" duration="3629000" />
+      <workItem from="1747673213810" duration="210000" />
+      <workItem from="1747673445695" duration="35000" />
+      <workItem from="1747673501725" duration="5697000" />
+      <workItem from="1747687124206" duration="5301000" />
+      <workItem from="1747753849747" duration="4938000" />
+      <workItem from="1747764024211" duration="19994000" />
+      <workItem from="1747823791792" duration="18910000" />
+      <workItem from="1747858614432" duration="1669000" />
+      <workItem from="1747910943646" duration="6407000" />
+      <workItem from="1747922021353" duration="8599000" />
+      <workItem from="1747949959920" duration="2366000" />
+      <workItem from="1747953179836" duration="10000" />
+      <workItem from="1747953723901" duration="1041000" />
+      <workItem from="1747956982321" duration="820000" />
+      <workItem from="1747998311533" duration="10310000" />
+      <workItem from="1748013139800" duration="1489000" />
+      <workItem from="1748014662776" duration="169000" />
+      <workItem from="1748014856059" duration="7584000" />
+      <workItem from="1748023156177" duration="289000" />
+      <workItem from="1748023693547" duration="9000" />
+      <workItem from="1748027132143" duration="883000" />
+      <workItem from="1748033380322" duration="1080000" />
+      <workItem from="1748083081583" duration="2273000" />
+      <workItem from="1748088784109" duration="8590000" />
+      <workItem from="1748102650775" duration="2990000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
