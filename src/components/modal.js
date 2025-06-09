@@ -16,6 +16,7 @@ function hideModal(element) { //закрытие модалки + удалени
     element.classList.remove('popup_is-opened')
     document.removeEventListener('keydown', closeModalOnEsc)
     element.removeEventListener('click', closeModalOnOverlayClick)
+
 }
 /**
  * Обработчик события нажатия клавиши Escape.

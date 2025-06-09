@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e6c62e3-6db9-447e-b47e-3c417c3ce96c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/blocks/popup/__error/popup__input-error.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/validation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/card/__delete-button/card__delete-button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/card/__delete-button/card__delete-button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__button/popup__button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__button/popup__button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/popup/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/popup.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
@@ -107,7 +115,51 @@
       <workItem from="1748033380322" duration="1080000" />
       <workItem from="1748083081583" duration="2273000" />
       <workItem from="1748088784109" duration="8590000" />
-      <workItem from="1748102650775" duration="2990000" />
+      <workItem from="1748102650775" duration="3777000" />
+      <workItem from="1748179022244" duration="142000" />
+      <workItem from="1748179219494" duration="684000" />
+      <workItem from="1748200445382" duration="483000" />
+      <workItem from="1748209411486" duration="39000" />
+      <workItem from="1748264455006" duration="3954000" />
+      <workItem from="1748523930240" duration="31000" />
+      <workItem from="1748524194087" duration="10000" />
+      <workItem from="1748525719637" duration="111000" />
+      <workItem from="1748525869848" duration="20000" />
+      <workItem from="1748533656546" duration="2528000" />
+      <workItem from="1748621585840" duration="1109000" />
+      <workItem from="1748626884862" duration="618000" />
+      <workItem from="1748717031738" duration="1128000" />
+      <workItem from="1748777934333" duration="27990000" />
+      <workItem from="1748820938539" duration="445000" />
+      <workItem from="1748823552703" duration="2322000" />
+      <workItem from="1748869865217" duration="15292000" />
+      <workItem from="1748890816795" duration="2735000" />
+      <workItem from="1748896467804" duration="3139000" />
+      <workItem from="1748953230706" duration="22971000" />
+      <workItem from="1748997900614" duration="1602000" />
+      <workItem from="1749044058031" duration="12327000" />
+      <workItem from="1749062339971" duration="5452000" />
+      <workItem from="1749073948431" duration="1215000" />
+      <workItem from="1749084576511" duration="2174000" />
+      <workItem from="1749131048677" duration="1162000" />
+      <workItem from="1749146655617" duration="1474000" />
+      <workItem from="1749152621770" duration="3969000" />
+      <workItem from="1749213761914" duration="12686000" />
+      <workItem from="1749229246420" duration="1473000" />
+      <workItem from="1749234627962" duration="1760000" />
+      <workItem from="1749237471071" duration="2228000" />
+      <workItem from="1749246638350" duration="7622000" />
+      <workItem from="1749294708376" duration="2896000" />
+      <workItem from="1749298712162" duration="1196000" />
+      <workItem from="1749302760244" duration="794000" />
+      <workItem from="1749303976112" duration="7461000" />
+      <workItem from="1749329234005" duration="6154000" />
+      <workItem from="1749338594455" duration="492000" />
+      <workItem from="1749344334725" duration="740000" />
+      <workItem from="1749345557330" duration="4128000" />
+      <workItem from="1749386815090" duration="20033000" />
+      <workItem from="1749431013743" duration="363000" />
+      <workItem from="1749478779930" duration="18357000" />
     </task>
     <servers />
   </component>

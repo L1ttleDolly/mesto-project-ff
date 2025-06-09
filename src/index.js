@@ -1,7 +1,9 @@
 import './pages/index.css'
-import {initialCards} from './components/cards.js'
+/*import {initialCards} from './components/cards.js'*/
 import {createCard, deleteCard, toggleLikeCard} from './components/card.js'
 import {showModal, hideModal, closeModalOnEsc, closeModalOnOverlayClick} from './components/modal.js'
+import {enableValidation, clearValidation, checkInputValidity, showError, hideError, toggleButtonState, setEventListeners} from './components/validation.js'
+import {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard} from './components/api.js'
 
 const $ = document.querySelector.bind(document)
 const cardContainer = $('.places__list'); // контененр карточек
@@ -27,7 +29,29 @@ const profileDescription = $('.profile__description') // описание
 const popupImg = modalImg.querySelector('.popup__image')
 const imgTitle = modalImg.querySelector('.popup__caption')
 
-placeCards(); //вызываб функцию массива
+const config = {
+    formSelector: '.popup__form', //forma
+    inputSelector: '.popup__input', //input
+    submitButtonSelector: '.popup__button', //submit button
+    inactiveButtonClass: 'button_inactive', // blokirovka btn
+    inputErrorClass: 'popup__input_type_error', // обводка
+    inputErrorActive: '.popup__input-error_active', //показать ошибку
+}
+
+enableValidation(config);
+
+Promise.all([getCards(), getUserProfile()])
+    .then(([cards, userProfile]) => {
+        console.log(cards, userProfile)
+
+        placeCards(cards, userProfile)
+        profileTitleName.textContent = userProfile.name;
+        profileDescription.textContent = userProfile.about;
+    })
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    });
+
 
 /*перебираю через форич кнопки закрытия, определаю через closest в котором попапе нажата кнопка закрытия, делаю поверку, чтоы действительно нашла попап и вызываю функцию*/
 buttonsCloseModal.forEach(function (button) {
@@ -54,18 +78,21 @@ function handleCardClick(card) {
 /**
  * Создаёт и добавляет карточки из массива initialCards в контейнер на странице.
  */
-function placeCards() {
-    initialCards.forEach(function (card) {
+function placeCards(cards, userProfile) {
+    cards.forEach(function (card) {
         const cardData = createCard( // записываю в переменную функцию создания с параметрами функций и объекта
             card,
             cardTemplate,
             modalImg,
             handleCardClick,
             deleteCard,
-            toggleLikeCard
+            toggleLikeCard,
+            userProfile
         )
+
         cardContainer.append(cardData) //вывожу в контейнер вызов функцию, которая делает все то,что перечислено в параметрах
     })
+
 }
 /**
  * Заполняет форму редактирования профиля текущими данными из профиля.
@@ -81,14 +108,24 @@ function fillProfileForm() {
  */
 function handleFormSubmitProfile(evt) {
     evt.preventDefault()
-    const nameInputValue = nameInput.value // получаем текущее значение инпут валуе, то, что пользователь вел или изменил
-    const jobInputValue = jobInput.value
 
-    profileTitleName.textContent = nameInputValue// присваеваем текст контент в инпут валуе, т.к. эти данные изменены в форме и должны отобразиться на странице
-    profileDescription.textContent = jobInputValue
+    const nameInputValue = nameInput.value;
+    const jobInputValue = jobInput.value;
 
-    hideModal(popup)//закрытие модалки после создания новой карточки
+    editDataProfile(nameInputValue, jobInputValue)
+        .then((data) => {
+            console.log(data);
+            profileTitleName.textContent = data.name
+            profileDescription.textContent = data.about
+            hideModal(modalProfileEdit);  // Закрываем модалку
+
+        })
+        .catch((err) => {
+            console.error(err)
+        })
 }
+
+formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 /**
  * Обрабатывает создание новой карточки на основе данных из формы.
  * Добавляет карточку в начало списка и закрывает модальное окно.
@@ -105,13 +142,21 @@ function makeNewCard(evt) {
         link: cardUrl,
     }
 
+    createCardOnServer(newCard)
+        .then((card) => {
+            console.log('доавблеано:', card)
+        })
+        .catch((err) => console.log(err))
+
     const cardData = createCard( // кладу в переменную функцию создания с параметрами функций и объекта
         newCard,
         cardTemplate,
         modalImg,
         handleCardClick,
         deleteCard,
-        toggleLikeCard
+        toggleLikeCard,
+        userProfile
+
     )
     cardContainer.prepend(cardData)
 
@@ -120,15 +165,21 @@ function makeNewCard(evt) {
     formElementCard.reset() // очищаю форму
 }
 
-    formElementCard.addEventListener('submit', makeNewCard) //вещаю слушатель который после отправки создаст новую карьу
+
+    formElementCard.addEventListener('submit', makeNewCard) //вещаю слушатель который после отправки создаст новую карьу(передать функциб валидации)
 
     buttonProfileEdit.addEventListener('click', function () {  //открытие по клику
-    showModal(modalProfileEdit) // вызыв модалки профиля
-    fillProfileForm() // заполняю данные модалки, чтоб в ней уже была данные со страницы
+        showModal(modalProfileEdit) // вызыв модалки профиля
+        fillProfileForm() // заполняю данные модалки, чтоб в ней уже была данные со страницы
+        clearValidation(formElementProfile, config)
     })
 
     buttonAddCard.addEventListener('click', function () {
         showModal(modalAddCard) //вызываю модалку по плюсику для доблавения карточки
+        formElementCard.reset()
+        clearValidation(formElementCard, config)
+
     })
 
     formElementProfile.addEventListener('submit', handleFormSubmitProfile) //вешаю слушатель на форму и при отправке вызывается функция, которая обновляет данные
+

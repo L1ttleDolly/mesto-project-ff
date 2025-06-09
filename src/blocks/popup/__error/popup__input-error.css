@@ -1,0 +1,13 @@
+.popup__input-error {  /*текст*/
+    display: none;
+    color: red;
+    font-size: 12px;
+}
+
+.popup__input-error_active { /*  покащать ошибку*/
+    display: block;
+}
+
+.form__input-type_error { /* подсветить инпут */
+    border-bottom: 2px solid red;
+}
