@@ -3,7 +3,7 @@ import './pages/index.css'
 import {createCard, deleteCard, toggleLikeCard} from './components/card.js'
 import {showModal, hideModal, closeModalOnEsc, closeModalOnOverlayClick} from './components/modal.js'
 import {enableValidation, clearValidation, checkInputValidity, showError, hideError, toggleButtonState, setEventListeners} from './components/validation.js'
-import {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard} from './components/api.js'
+import {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard, addLike, removeLike} from './components/api.js'
 
 const $ = document.querySelector.bind(document)
 const cardContainer = $('.places__list'); // контененр карточек
@@ -144,21 +144,19 @@ function makeNewCard(evt) {
 
     createCardOnServer(newCard)
         .then((card) => {
-            console.log('доавблеано:', card)
+            const cardData = createCard( // кладу в переменную функцию создания с параметрами функций и объекта
+                card,
+                cardTemplate,
+                modalImg,
+                handleCardClick,
+                deleteCard,
+                toggleLikeCard,
+                card.owner
+            )
+            cardContainer.prepend(cardData)
         })
         .catch((err) => console.log(err))
 
-    const cardData = createCard( // кладу в переменную функцию создания с параметрами функций и объекта
-        newCard,
-        cardTemplate,
-        modalImg,
-        handleCardClick,
-        deleteCard,
-        toggleLikeCard,
-        userProfile
-
-    )
-    cardContainer.prepend(cardData)
 
     hideModal($('.popup_is-opened')) //закрытие модалки после сощдания новой карточки
 

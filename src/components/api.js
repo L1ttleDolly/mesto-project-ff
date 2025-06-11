@@ -1,4 +1,4 @@
-export {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard}
+export {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard, addLike, removeLike}
 
 function getUserProfile() { //
     return fetch('https://nomoreparties.co/v1/wff-cohort-40/users/me', {
@@ -47,11 +47,10 @@ function  createCardOnServer(newCard) {
                 return res.json() }
 
         })
-
 }
 
-function deleteServerCard(id) {
-    return fetch(`https://nomoreparties.co/v1/wff-cohort-40/cards/${id}`, {
+function deleteServerCard(cardId) {
+    return fetch(`https://nomoreparties.co/v1/wff-cohort-40/cards/${cardId}`, {
         method: 'DELETE',
         headers: {
             authorization: '7e118dfc-cae6-4af0-96ac-0800487ee4ed',
@@ -59,7 +58,6 @@ function deleteServerCard(id) {
         }
     })
         .then((res) => res.json())
-
 }
 
 
@@ -81,6 +79,31 @@ function editDataProfile(name, about) {
         })
 }
 
+function addLike(id) {
+    return fetch(`https://nomoreparties.co/v1/wff-cohort-40/cards/likes/${id}`,{
+        method: 'PUT',
+        headers: {
+            authorization: '7e118dfc-cae6-4af0-96ac-0800487ee4ed',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then((res) => {
+            console.log('полученные данные:', res)
+            return res.json()
+        })
 
+}
 
+function removeLike(id) {
+    return fetch(`https://nomoreparties.co/v1/wff-cohort-40/cards/likes/${id}`,{
+        method: 'DELETE',
+        headers: {
+            authorization: '7e118dfc-cae6-4af0-96ac-0800487ee4ed',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then((res) => {
+            return res.json()
+        })
 
+}

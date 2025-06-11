@@ -1,13 +1,15 @@
-import {deleteServerCard} from "./api"
+import {deleteServerCard, addLike, removeLike} from "./api"
 
 export {createCard, deleteCard, toggleLikeCard}
 
 function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, toggleLikeCard, userProfile) {
-    console.log('аргументы:', { card, cardTemplate, modalImg, handleCardClick, deleteCard, toggleLikeCard, userProfile });
+  /*  console.log('аргументы:', { card, cardTemplate, modalImg, handleCardClick, deleteCard, toggleLikeCard, userProfile });*/
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true); //клонирую
     const deleteButton = cardElement.querySelector('.card__delete-button') //нахожу кнопку в карточке
     const likeButtonCard = cardElement.querySelector('.card__like-button')
     const cardImg = cardElement.querySelector('.card__image')
+    const cardId = card._id
+    const likesCounter = document.querySelector('.card__like-count')
 
     Object.assign(cardElement.querySelector(".card__image"), { //чеоез этот метод (target, {source1, source2,})
         src: card.link,
@@ -25,15 +27,16 @@ function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, t
     }
 
     likeButtonCard.addEventListener('click', function (e) {
-        toggleLikeCard(likeButtonCard) //лайк в аргументаъ кнопка лайка
+        toggleLikeCard(likeButtonCard, cardId)
     })
 
     cardImg.addEventListener('click',function (){
         handleCardClick(card) //
     })
-
+    console.log('спан', likesCounter)
+    /*countLikes(cardId)*/
+    cardElement.id = `card-${card._id}`
     return cardElement //возвращаю 1 заполненную карточку
-
 }
 
 function deleteCard(cardElement, card, userProfile) {
@@ -45,15 +48,50 @@ function deleteCard(cardElement, card, userProfile) {
         deleteServerCard(card._id)
             .then(() => {
                 console.log('удалена:', card._id)
-                cardElement.remove();
+                cardElement.remove()
             })
             .catch((err) => {
                 console.log('Ошибка')
-            });
+            })
     }
-
 }
-function toggleLikeCard(button) { // лайк карточки
+
+/*
+function toggleLikeCard(button) {
+    // лайк карточки
     button.classList.toggle('card__like-button_is-active')
+}
+*/
+
+
+/*
+function countLikes(cardId) {
+    console.log('лайки для карточки с id:', cardId)
+    addLike(cardId)
+        .then((data) => {
+            const likesCounter = document.querySelector(`#card-${cardId} .card__like-count`)
+            likesCounter.textContent = data.likes.length
+
+        })
+        .catch((err) => console.log('Ошибка при получении лайков:', err))
+}
+*/
+
+function toggleLikeCard(button, cardId, countLikes) {
+
+
+
+    if (button.classList.contains('card__like-button_is-active'))
+        removeLike(cardId)
+            .then(() => {
+            button.classList.remove('card__like-button_is-active')
+        })
+    else {
+    addLike(cardId)
+        .then(() => {
+        button.classList.add('card__like-button_is-active')
+    });
+}
+    /*countLikes()*/
 }
 

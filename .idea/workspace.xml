@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e6c62e3-6db9-447e-b47e-3c417c3ce96c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/blocks/popup/__error/popup__input-error.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/validation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/card/__delete-button/card__delete-button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/card/__delete-button/card__delete-button.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__button/popup__button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__button/popup__button.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/popup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/card/__like-button/card__like-button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/card/__like-button/card__like-button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +151,12 @@
       <workItem from="1749345557330" duration="4128000" />
       <workItem from="1749386815090" duration="20033000" />
       <workItem from="1749431013743" duration="363000" />
-      <workItem from="1749478779930" duration="18357000" />
+      <workItem from="1749478779930" duration="22301000" />
+      <workItem from="1749509235982" duration="109000" />
+      <workItem from="1749517557197" duration="1383000" />
+      <workItem from="1749569944205" duration="66000" />
+      <workItem from="1749573914445" duration="10199000" />
+      <workItem from="1749643000613" duration="19157000" />
     </task>
     <servers />
   </component>
