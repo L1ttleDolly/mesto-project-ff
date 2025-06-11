@@ -9,7 +9,13 @@ function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, t
     const likeButtonCard = cardElement.querySelector('.card__like-button')
     const cardImg = cardElement.querySelector('.card__image')
     const cardId = card._id
-    const likesCounter = document.querySelector('.card__like-count')
+    const likesCounter = cardElement.querySelector('.card__like-count')
+    likesCounter.textContent = card.likes.length
+    console.log('span', likesCounter)
+
+    if (card.likes.some(like => like._id === userProfile._id)) {
+        likeButtonCard.classList.add('card__like-button_is-active')
+    }
 
     Object.assign(cardElement.querySelector(".card__image"), { //чеоез этот метод (target, {source1, source2,})
         src: card.link,
@@ -27,15 +33,15 @@ function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, t
     }
 
     likeButtonCard.addEventListener('click', function (e) {
-        toggleLikeCard(likeButtonCard, cardId)
+        toggleLikeCard(likeButtonCard, cardId, likesCounter)
     })
 
     cardImg.addEventListener('click',function (){
-        handleCardClick(card) //
+        handleCardClick(card)
     })
-    console.log('спан', likesCounter)
-    /*countLikes(cardId)*/
+
     cardElement.id = `card-${card._id}`
+
     return cardElement //возвращаю 1 заполненную карточку
 }
 
@@ -63,7 +69,6 @@ function toggleLikeCard(button) {
 }
 */
 
-
 /*
 function countLikes(cardId) {
     console.log('лайки для карточки с id:', cardId)
@@ -77,21 +82,20 @@ function countLikes(cardId) {
 }
 */
 
-function toggleLikeCard(button, cardId, countLikes) {
+function toggleLikeCard(likeButtonCard, cardId, likesCounter) {
 
-
-
-    if (button.classList.contains('card__like-button_is-active'))
+    if (likeButtonCard.classList.contains('card__like-button_is-active'))
         removeLike(cardId)
-            .then(() => {
-            button.classList.remove('card__like-button_is-active')
+            .then((data) => {
+                likesCounter.textContent = data.likes.length
+                likeButtonCard.classList.remove('card__like-button_is-active')
         })
     else {
     addLike(cardId)
-        .then(() => {
-        button.classList.add('card__like-button_is-active')
-    });
-}
-    /*countLikes()*/
+        .then((data) => {
+            likesCounter.textContent = data.likes.length
+            likeButtonCard.classList.add('card__like-button_is-active')
+        })
+    }
 }
 
