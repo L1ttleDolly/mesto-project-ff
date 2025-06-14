@@ -2,7 +2,7 @@
   display: grid;
   grid-template-areas: "title button"
   "description description";
-  grid-template-columns: minmax(auto, 295px) auto;
+  grid-template-columns: min-content auto;
   grid-gap: 9px 17px;
 }
 

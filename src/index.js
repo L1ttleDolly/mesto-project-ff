@@ -1,18 +1,24 @@
+/**
+ * Главный модуль инициализации приложения: загрузка профиля и карточек,
+ * взаимодействие с формами, модальными окнами и сервером.
+ */
 import './pages/index.css'
-/*import {initialCards} from './components/cards.js'*/
 import {createCard, deleteCard, toggleLikeCard} from './components/card.js'
 import {showModal, hideModal, closeModalOnEsc, closeModalOnOverlayClick} from './components/modal.js'
 import {enableValidation, clearValidation, checkInputValidity, showError, hideError, toggleButtonState, setEventListeners} from './components/validation.js'
-import {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard, addLike, removeLike} from './components/api.js'
+import {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard, addLike, removeLike, changeAvatar} from './components/api.js'
+
+export {config, configApi}
 
 const $ = document.querySelector.bind(document)
-const cardContainer = $('.places__list'); // контененр карточек
+const cardContainer = $('.places__list') // контененр карточек
 const cardTemplate = $('#card-template').content
 
 const popup = document.querySelector('.popup') //попап
 const modalImg = $('.popup_type_image') //модалка картинки
 const modalAddCard = $('.popup_type_new-card') // модалка добавления краточек
 const modalProfileEdit = $('.popup_type_edit') //модалка редактирования профиля
+const modalAvatarProfile = $('.popup_type_new-avatar')
 const buttonProfileEdit = $('.profile__edit-button') //кнопка редактирования профиля
 const buttonAddCard = $('.profile__add-button') // плюс добаления карточек
 const buttonsCloseModal = document.querySelectorAll('.popup__close') //все кнопки закрытия
@@ -23,37 +29,94 @@ const jobInput = formElementProfile.querySelector('.popup__input_type_descriptio
 const formElementCard = $('form[name="new-place"]') // форма карты
 const nameCardInput = formElementCard.querySelector('.popup__input_type_card-name')
 const cardUrlInput = formElementCard.querySelector('.popup__input_type_url')
+
+const formElementAvatar = $('form[name="new-avatar"]') // форма аватара
+const avatarInput = $('.popup__input_type_url-avatar') //
+const profileImg = $('.profile__image')
 const profileTitleName = $('.profile__title') //заголовок в профиле
 const profileDescription = $('.profile__description') // описание
 
 const popupImg = modalImg.querySelector('.popup__image')
 const imgTitle = modalImg.querySelector('.popup__caption')
 
+/**
+ * @typedef {Object} config
+ * @property {string} formSelector - Селектор форм для валидации.
+ * @property {string} inputSelector - Селектор инпутов внутри формы.
+ * @property {string} submitButtonSelector - Селектор кнопки отправки формы.
+ * @property {string} inactiveButtonClass - Класс для неактивной кнопки.
+ * @property {string} inputErrorClass - Класс для инпута с ошибкой.
+ * @property {string} inputErrorActive - Класс для активного сообщения об ошибке.
+ */
 const config = {
-    formSelector: '.popup__form', //forma
-    inputSelector: '.popup__input', //input
-    submitButtonSelector: '.popup__button', //submit button
-    inactiveButtonClass: 'button_inactive', // blokirovka btn
-    inputErrorClass: 'popup__input_type_error', // обводка
-    inputErrorActive: '.popup__input-error_active', //показать ошибку
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'button_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    inputErrorActive: '.popup__input-error_active',
 }
 
-enableValidation(config);
+/**
+ * Конфигурация API-запросов.
+ * @type {Object}
+ */
+const configApi = {
+    authorizationToken: '7e118dfc-cae6-4af0-96ac-0800487ee4ed',
+}
+// Инициализация валидации всех форм
+enableValidation(config)
 
+/**
+ * Загружает данные пользователя и карточки, затем инициализирует отображение.
+ */
 Promise.all([getCards(), getUserProfile()])
     .then(([cards, userProfile]) => {
-        console.log(cards, userProfile)
-
         placeCards(cards, userProfile)
-        profileTitleName.textContent = userProfile.name;
-        profileDescription.textContent = userProfile.about;
+        profileTitleName.textContent = userProfile.name
+        profileDescription.textContent = userProfile.about
     })
     .catch((err) => {
-        console.log(err); // выводим ошибку в консоль
-    });
+        console.log(err)
+    })
 
+/**
+ * Загружает и устанавливает аватар пользователя при загрузке страницы.
+ */
+window.addEventListener('load', () => {
+    getUserProfile()
+        .then((data) => {
+            if (data.avatar && profileImg) {
+                profileImg.style.backgroundImage = `url(${data.avatar})`
+            }
+            profileTitleName.textContent = data.name
+            profileDescription.textContent = data.about
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
 
-/*перебираю через форич кнопки закрытия, определаю через closest в котором попапе нажата кнопка закрытия, делаю поверку, чтоы действительно нашла попап и вызываю функцию*/
+/**
+ * Обрабатывает отправку формы изменения аватара.
+ * @param {Event} evt - Событие отправки формы.
+ */
+function handleAvatarSubmitProfile(evt) {
+    evt.preventDefault()
+    const inputAvatarValue = avatarInput.value
+
+    changeAvatar(inputAvatarValue)
+        .then((data) => {
+            if(profileImg) {
+                profileImg.style.backgroundImage = `url(${data.avatar})`
+            }
+        })
+    hideModal(modalAvatarProfile)
+}
+
+formElementAvatar.addEventListener('submit', handleAvatarSubmitProfile)
+
+//Опредление в котором из попапов произошел клик для закрытия модального окна.
 buttonsCloseModal.forEach(function (button) {
     button.addEventListener('click', function () {
         const modal = button.closest('.popup')
@@ -62,6 +125,7 @@ buttonsCloseModal.forEach(function (button) {
         }
     })
 })
+
 /**
  * Обрабатывает клик по карточке: открывает модальное окно с увеличенным изображением.
  * @param {Object} card - Объект карточки с полями `name` и `link`.
@@ -75,12 +139,16 @@ function handleCardClick(card) {
     imgTitle.textContent = card.name
     showModal(modalImg)
 }
+
 /**
- * Создаёт и добавляет карточки из массива initialCards в контейнер на странице.
+ * Создаёт карточки и добавляет их на страницу.
+ * @param {Array} cards - Массив объектов карточек.
+ * @param {Object} userProfile - Данные текущего пользователя.
  */
 function placeCards(cards, userProfile) {
     cards.forEach(function (card) {
-        const cardData = createCard( // записываю в переменную функцию создания с параметрами функций и объекта
+// Создаём DOM-элемент карточки и добавляем его в контейнер
+        const cardData = createCard(
             card,
             cardTemplate,
             modalImg,
@@ -89,18 +157,18 @@ function placeCards(cards, userProfile) {
             toggleLikeCard,
             userProfile
         )
-
-        cardContainer.append(cardData) //вывожу в контейнер вызов функцию, которая делает все то,что перечислено в параметрах
+        cardContainer.append(cardData) //Вывод в контейнер вызов функцию, которая делает все то,что перечислено в параметрах
     })
-
 }
+
 /**
  * Заполняет форму редактирования профиля текущими данными из профиля.
  */
 function fillProfileForm() {
-    nameInput.value = profileTitleName.textContent // достаем текст из элемента профиля(тайлт и описание) и вставляем в поле ввода(инпут валуе)
+    nameInput.value = profileTitleName.textContent // Достаем текст из элемента профиля(тайлт и описание) и вставляем в поле ввода
     jobInput.value = profileDescription.textContent
 }
+
 /**
  * Обрабатывает отправку формы редактирования профиля.
  * Обновляет данные профиля на странице и закрывает модальное окно.
@@ -109,23 +177,22 @@ function fillProfileForm() {
 function handleFormSubmitProfile(evt) {
     evt.preventDefault()
 
-    const nameInputValue = nameInput.value;
-    const jobInputValue = jobInput.value;
+    const nameInputValue = nameInput.value
+    const jobInputValue = jobInput.value
 
     editDataProfile(nameInputValue, jobInputValue)
         .then((data) => {
-            console.log(data);
+
             profileTitleName.textContent = data.name
             profileDescription.textContent = data.about
-            hideModal(modalProfileEdit);  // Закрываем модалку
+            hideModal(modalProfileEdit)
 
         })
         .catch((err) => {
-            console.error(err)
+            console.log(err)
         })
 }
 
-formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 /**
  * Обрабатывает создание новой карточки на основе данных из формы.
  * Добавляет карточку в начало списка и закрывает модальное окно.
@@ -133,18 +200,19 @@ formElementProfile.addEventListener('submit', handleFormSubmitProfile);
  */
 function makeNewCard(evt) {
     evt.preventDefault()
-
-    const nameValue = nameCardInput.value //достаю ввеленное валуе в форму
+// Получение данных из поля имени
+    const nameValue = nameCardInput.value
     const cardUrl = cardUrlInput.value
-
-    const newCard = { // создаю объект
+// Создание объекта для новой карточки
+    const newCard = {
         name: nameValue,
         link: cardUrl,
     }
 
+//Создание карточки на сервере
     createCardOnServer(newCard)
         .then((card) => {
-            const cardData = createCard( // кладу в переменную функцию создания с параметрами функций и объекта
+            const cardData = createCard(
                 card,
                 cardTemplate,
                 modalImg,
@@ -155,29 +223,44 @@ function makeNewCard(evt) {
             )
             cardContainer.prepend(cardData)
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+            console.log(err)
+        })
 
+    hideModal($('.popup_is-opened'))
 
-    hideModal($('.popup_is-opened')) //закрытие модалки после сощдания новой карточки
-
-    formElementCard.reset() // очищаю форму
+    formElementCard.reset()
 }
 
+//Слушатель который после отправки, создаст новую карточку
+    formElementCard.addEventListener('submit', makeNewCard)
 
-    formElementCard.addEventListener('submit', makeNewCard) //вещаю слушатель который после отправки создаст новую карьу(передать функциб валидации)
-
-    buttonProfileEdit.addEventListener('click', function () {  //открытие по клику
-        showModal(modalProfileEdit) // вызыв модалки профиля
-        fillProfileForm() // заполняю данные модалки, чтоб в ней уже была данные со страницы
+/**
+ * Обработчик клика по кнопке редактирования профиля.
+ */
+    buttonProfileEdit.addEventListener('click', function () {
+        showModal(modalProfileEdit)
+        fillProfileForm() // Заполнение модального окна текущими данными со страицы
         clearValidation(formElementProfile, config)
     })
 
+/**
+ * Обработчик клика по кнопке добавления карточки.
+ */
     buttonAddCard.addEventListener('click', function () {
-        showModal(modalAddCard) //вызываю модалку по плюсику для доблавения карточки
+        showModal(modalAddCard)
         formElementCard.reset()
         clearValidation(formElementCard, config)
-
     })
 
-    formElementProfile.addEventListener('submit', handleFormSubmitProfile) //вешаю слушатель на форму и при отправке вызывается функция, которая обновляет данные
+/**
+ * Обработчик клика по аватарке профиля для загрузки новой.
+ */
+profileImg.addEventListener('click', function () {
+        showModal(modalAvatarProfile)
+        formElementCard.reset()
+        clearValidation(formElementCard, config)
+    })
+
+formElementProfile.addEventListener('submit', handleFormSubmitProfile)
 

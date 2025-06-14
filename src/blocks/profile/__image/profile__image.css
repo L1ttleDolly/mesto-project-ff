@@ -1,4 +1,5 @@
 .profile__image {
+  position: relative;
   width: 120px;
   height: 120px;
   -webkit-border-radius: 50%;
@@ -7,7 +8,43 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  cursor: pointer;
 }
+
+.profile__image::after {
+  content: " ";
+  position: absolute;
+  background-image: url("/src/images/edit-icon.svg");
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+.profile__image::before {
+ content: " ";
+  position: absolute;
+  transform: translate(0);;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile__image:hover::after {
+  opacity: 1; /* Иконка становится видимой при ховере */
+}
+
+.profile__image:hover::before {
+  opacity: 1; /* Фон затемняется при ховере */
+}
+
 
 @media screen and (max-width: 740px) {
   .profile__image {

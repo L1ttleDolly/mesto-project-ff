@@ -16,7 +16,6 @@ function hideModal(element) { //закрытие модалки + удалени
     element.classList.remove('popup_is-opened')
     document.removeEventListener('keydown', closeModalOnEsc)
     element.removeEventListener('click', closeModalOnOverlayClick)
-
 }
 /**
  * Обработчик события нажатия клавиши Escape.
@@ -25,7 +24,6 @@ function hideModal(element) { //закрытие модалки + удалени
  */
 function closeModalOnEsc(e) {
     if (e.key === 'Escape') {
-
         if (document.querySelector('.popup_is-opened')) hideModal(document.querySelector('.popup_is-opened'))
     }
 }
@@ -36,7 +34,6 @@ function closeModalOnEsc(e) {
  */
 function closeModalOnOverlayClick(e) {
     if (e.target === e.currentTarget) {
-
         hideModal(e.target.closest('.popup'))
     }
 }
