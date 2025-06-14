@@ -116,9 +116,6 @@ function handleAvatarSubmitProfile(evt) {
             buttonSubmitAvatar.disabled = false
             renderLoading(false, buttonSubmitAvatar)
         })
-        .finally(() => {
-            renderLoading(false, buttonSubmitAvatar)
-        })
 }
 
 formElementAvatar.addEventListener('submit', handleAvatarSubmitProfile)
@@ -197,9 +194,6 @@ function handleFormSubmitProfile(evt) {
             buttonSubmitProfile.disabled = false
             renderLoading(false, buttonSubmitProfile)
         })
-        .finally(() => {
-           renderLoading(false, buttonSubmitProfile)
-        })
 }
 
 /**
@@ -238,9 +232,6 @@ function makeNewCard(evt) {
         .catch((err) => {
             console.log(err)
             buttonSubmitCard.disabled = false
-            renderLoading(false, buttonSubmitCard)
-        })
-        .finally(() => {
             renderLoading(false, buttonSubmitCard)
         })
 }
