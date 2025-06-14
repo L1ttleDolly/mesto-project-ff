@@ -1,2 +1,2 @@
 # Проектная работа Mesto
-https://github.com/L1ttleDolly/mesto-project-ff
+https://l1ttledolly.github.io/mesto-project-ff/
