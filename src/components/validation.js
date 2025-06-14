@@ -104,11 +104,12 @@ function setEventListeners(formElement, config) {
  * @param {Object} config - Конфигурация с CSS-классами.
  */
 function clearValidation(formElement, config) {
-
+    const buttonElement = formElement.querySelector(config.submitButtonSelector)
     const inputList = Array.from(formElement.querySelectorAll(config.inputSelector))
     inputList.forEach(function(inputElement) {
         hideError(formElement, inputElement, config)
     })
+    toggleButtonState (inputList, buttonElement, config)
 }
 
 /**
@@ -121,6 +122,7 @@ function enableValidation (config) {
         formElement.addEventListener('submit', function(e) {
             e.preventDefault()
         })
+
         setEventListeners(formElement, config)
     })
 }

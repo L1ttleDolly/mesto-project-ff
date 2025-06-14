@@ -1,16 +1,24 @@
 export {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard, addLike, removeLike, changeAvatar}
-import {configApi} from "../index"
+
+/**
+ * Конфигурация API-запросов.
+ * @type {Object}
+ */
+const configApi = {
+    baseUrl: 'https://nomoreparties.co/v1/wff-cohort-40',
+    headers: {
+        authorization: '7e118dfc-cae6-4af0-96ac-0800487ee4ed',
+        'Content-Type': 'application/json'
+    }
+}
 
 /**
  * Получает данные профиля текущего пользователя с сервера.
  * @returns {Promise<Object>} Объект с данными пользователя.
  */
 function getUserProfile() { //
-    return fetch('https://nomoreparties.co/v1/wff-cohort-40/users/me', {
-        headers: {
-            authorization: '7e118dfc-cae6-4af0-96ac-0800487ee4ed',
-            'Content-Type': 'application/json'
-        },
+    return fetch(`${configApi.baseUrl}/users/me`, {
+        headers: configApi.headers
     })
         .then(res => {
             if (res.ok) {
@@ -25,20 +33,14 @@ function getUserProfile() { //
  * @returns {Promise<Array<Object>>} Массив объектов карточек.
  */
 function getCards() { //карточки
-    return fetch('https://nomoreparties.co/v1/wff-cohort-40/cards ', {
-        headers: {
-            authorization: configApi.authorizationToken }
+    return fetch(`${configApi.baseUrl}/cards`, {
+        headers: configApi.headers
     })
-
-        .then((res) => {
-            if(res.ok) {
-                return res.json() }
-        })
-        .then((cards) => {
-            return cards
-        })
-        .catch((err) => {
-            console.log(err);
+        .then(res => {
+            if (res.ok) {
+                return res.json()
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
         })
 }
 
@@ -49,12 +51,9 @@ function getCards() { //карточки
  * @returns {Promise<Object>} Обновлённый объект профиля.
  */
 function editDataProfile(name, about) {
-    return fetch('https://nomoreparties.co/v1/wff-cohort-40/users/me', {
+    return fetch(`${configApi.baseUrl}/users/me`, {
         method: 'PATCH',
-        headers: {
-            authorization: configApi.authorizationToken,
-            'Content-Type': 'application/json'
-        },
+        headers: configApi.headers,
         body: JSON.stringify({
             name: name,
             about: about
@@ -76,11 +75,9 @@ function editDataProfile(name, about) {
  * @returns {Promise<Object>} Объект созданной карточки.
  */
 function  createCardOnServer(newCard) {
-    return fetch('https://nomoreparties.co/v1/wff-cohort-40/cards',{
+    return fetch(`${configApi.baseUrl}/cards`,{
         method: 'POST',
-        headers: {
-            authorization: configApi.authorizationToken,
-            'Content-Type': 'application/json'},
+        headers: configApi.headers,
         body: JSON.stringify(newCard)
     })
         .then(res => {
@@ -97,12 +94,9 @@ function  createCardOnServer(newCard) {
  * @returns {Promise<Object>} Ответ сервера о результате удаления.
  */
 function deleteServerCard(cardId) {
-    return fetch(`https://nomoreparties.co/v1/wff-cohort-40/cards/${cardId}`, {
+    return fetch(`${configApi.baseUrl}/cards/${cardId}`, {
         method: 'DELETE',
-        headers: {
-            authorization: configApi.authorizationToken,
-            'Content-Type': 'application/json'
-        }
+        headers: configApi.headers,
     })
         .then(res => {
             if (res.ok) {
@@ -118,12 +112,9 @@ function deleteServerCard(cardId) {
  * @returns {Promise<Object>} Обновлённый объект карточки.
  */
 function addLike(id) {
-    return fetch(`https://nomoreparties.co/v1/wff-cohort-40/cards/likes/${id}`,{
+    return fetch(`${configApi.baseUrl}/cards/likes/${id}`,{
         method: 'PUT',
-        headers: {
-            authorization: configApi.authorizationToken,
-            'Content-Type': 'application/json'
-        },
+        headers: configApi.headers,
     })
         .then((res) => {
             if(res.ok) {
@@ -139,12 +130,9 @@ function addLike(id) {
  * @returns {Promise<Object>} Обновлённый объект карточки.
  */
 function removeLike(id) {
-    return fetch(`https://nomoreparties.co/v1/wff-cohort-40/cards/likes/${id}`, {
+    return fetch(`${configApi.baseUrl}/cards/likes/${id}`, {
         method: 'DELETE',
-        headers: {
-            authorization: configApi.authorizationToken,
-            'Content-Type': 'application/json'
-        },
+        headers: configApi.headers,
     })
         .then(res => {
             if (res.ok) {
@@ -160,12 +148,9 @@ function removeLike(id) {
  * @returns {Promise<Object>} Обновлённый объект пользователя с новым аватаром.
  */
 function changeAvatar(avatarUrl) {
-    return fetch('https://nomoreparties.co/v1/wff-cohort-40/users/me/avatar', {
+    return fetch(`${configApi.baseUrl}/users/me/avatar`, {
         method: 'PATCH',
-        headers: {
-            authorization: configApi.authorizationToken,
-            'Content-Type': 'application/json'
-        },
+        headers: configApi.headers,
         body: JSON.stringify({
             avatar: avatarUrl
         })

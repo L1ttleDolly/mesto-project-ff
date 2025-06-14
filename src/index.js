@@ -8,8 +8,6 @@ import {showModal, hideModal, closeModalOnEsc, closeModalOnOverlayClick} from '.
 import {enableValidation, clearValidation} from './components/validation.js'
 import {getUserProfile, getCards, editDataProfile, createCardOnServer, deleteServerCard, addLike, removeLike, changeAvatar} from './components/api.js'
 
-export {config, configApi}
-
 const $ = document.querySelector.bind(document)
 const cardContainer = $('.places__list') // контененр карточек
 const cardTemplate = $('#card-template').content
@@ -22,7 +20,9 @@ const modalAvatarProfile = $('.popup_type_new-avatar')
 const buttonProfileEdit = $('.profile__edit-button') //кнопка редактирования профиля
 const buttonAddCard = $('.profile__add-button') // плюс добаления карточек
 const buttonsCloseModal = document.querySelectorAll('.popup__close') //все кнопки закрытия
-const buttonSubmitModal = $('.popup__button')
+const buttonSubmitProfile = $('.popup_type_edit .popup__button') // Для формы редактирования профиля
+const buttonSubmitCard = $('.popup_type_new-card .popup__button') // Для формы создания карточки
+const buttonSubmitAvatar = $('.popup_type_new-avatar .popup__button') // Для формы аватара
 
 const formElementProfile = $('form[name="edit-profile"]')// форма профиля
 const nameInput = formElementProfile.querySelector('.popup__input_type_name')
@@ -58,13 +58,8 @@ const config = {
     inputErrorActive: '.popup__input-error_active',
 }
 
-/**
- * Конфигурация API-запросов.
- * @type {Object}
- */
-const configApi = {
-    authorizationToken: '7e118dfc-cae6-4af0-96ac-0800487ee4ed',
-}
+console.log(config.submitButtonSelector)
+
 // Инициализация валидации всех форм
 enableValidation(config)
 
@@ -76,27 +71,12 @@ Promise.all([getCards(), getUserProfile()])
         placeCards(cards, userProfile)
         profileTitleName.textContent = userProfile.name
         profileDescription.textContent = userProfile.about
+        profileImg.style.backgroundImage = `url(${userProfile.avatar})`
+
     })
     .catch((err) => {
         console.log(err)
     })
-
-/**
- * Загружает и устанавливает аватар пользователя при загрузке страницы.
- */
-window.addEventListener('load', () => {
-    getUserProfile()
-        .then((data) => {
-            if (data.avatar && profileImg) {
-                profileImg.style.backgroundImage = `url(${data.avatar})`
-            }
-            profileTitleName.textContent = data.name
-            profileDescription.textContent = data.about
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-})
 
 /**
  * Меняет текст кнопки во время загрузки (например, "Сохранение...").
@@ -105,15 +85,15 @@ window.addEventListener('load', () => {
  * @param {string} defaultText - Текст кнопки по умолчанию (например, "Сохранить").
  */
 function renderLoading(isLoading, buttonElement, defaultText = 'Сохранить') {
+
     if (isLoading) {
         buttonElement.textContent = 'Сохранение...'
         buttonElement.disabled = true
     }
     else {
         buttonElement.textContent = defaultText
-        buttonElement.disabled = false
-    }
 
+    }
 }
 
 /**
@@ -122,20 +102,23 @@ function renderLoading(isLoading, buttonElement, defaultText = 'Сохранит
  */
 function handleAvatarSubmitProfile(evt) {
     evt.preventDefault()
-    renderLoading(true, buttonSubmitModal)
-
     const inputAvatarValue = avatarInput.value
+    renderLoading(true, buttonSubmitAvatar)
 
     changeAvatar(inputAvatarValue)
         .then((data) => {
-            if(profileImg) {
-                profileImg.style.backgroundImage = `url(${data.avatar})`
-            }
+
+            profileImg.style.backgroundImage = `url(${data.avatar})`
+            hideModal(modalAvatarProfile)
+        })
+        .catch((err) => {
+            console.log(err)
+            buttonSubmitAvatar.disabled = false
+            renderLoading(false, buttonSubmitAvatar)
         })
         .finally(() => {
-            renderLoading(false, buttonSubmitModal)
+            renderLoading(false, buttonSubmitAvatar)
         })
-    hideModal(modalAvatarProfile)
 }
 
 formElementAvatar.addEventListener('submit', handleAvatarSubmitProfile)
@@ -175,7 +158,6 @@ function placeCards(cards, userProfile) {
         const cardData = createCard(
             card,
             cardTemplate,
-            modalImg,
             handleCardClick,
             deleteCard,
             toggleLikeCard,
@@ -200,23 +182,23 @@ function fillProfileForm() {
  */
 function handleFormSubmitProfile(evt) {
     evt.preventDefault()
-    renderLoading(true, buttonSubmitModal)
+    renderLoading(true, buttonSubmitProfile)
     const nameInputValue = nameInput.value
     const jobInputValue = jobInput.value
 
     editDataProfile(nameInputValue, jobInputValue)
         .then((data) => {
-
             profileTitleName.textContent = data.name
             profileDescription.textContent = data.about
             hideModal(modalProfileEdit)
-
         })
         .catch((err) => {
             console.log(err)
+            buttonSubmitProfile.disabled = false
+            renderLoading(false, buttonSubmitProfile)
         })
         .finally(() => {
-            renderLoading(false, buttonSubmitModal)
+           renderLoading(false, buttonSubmitProfile)
         })
 }
 
@@ -227,7 +209,7 @@ function handleFormSubmitProfile(evt) {
  */
 function makeNewCard(evt) {
     evt.preventDefault()
-    renderLoading(true, buttonSubmitModal)
+    renderLoading(true, buttonSubmitCard)
 // Получение данных из поля имени
     const nameValue = nameCardInput.value
     const cardUrl = cardUrlInput.value
@@ -249,18 +231,18 @@ function makeNewCard(evt) {
                 toggleLikeCard,
                 card.owner
             )
+            hideModal($('.popup_is-opened'))
+            formElementCard.reset()
             cardContainer.prepend(cardData)
         })
         .catch((err) => {
             console.log(err)
+            buttonSubmitCard.disabled = false
+            renderLoading(false, buttonSubmitCard)
         })
         .finally(() => {
-            renderLoading(false, buttonSubmitModal)
+            renderLoading(false, buttonSubmitCard)
         })
-
-    hideModal($('.popup_is-opened'))
-
-    formElementCard.reset()
 }
 
 //Слушатель который после отправки, создаст новую карточку
@@ -290,7 +272,7 @@ function makeNewCard(evt) {
 profileImg.addEventListener('click', function () {
         showModal(modalAvatarProfile)
         formElementCard.reset()
-        clearValidation(formElementCard, config)
+        clearValidation(formElementAvatar, config)
     })
 
 formElementProfile.addEventListener('submit', handleFormSubmitProfile)

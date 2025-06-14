@@ -14,7 +14,7 @@ export { createCard, deleteCard, toggleLikeCard };
  * @param {Object} userProfile - Объект текущего пользователя (содержит _id).
  * @returns {HTMLElement} DOM-элемент заполненной карточки.
  */
-function createCard(card, cardTemplate, modalImg, handleCardClick, deleteCard, toggleLikeCard, userProfile) {
+function createCard(card, cardTemplate, handleCardClick, deleteCard, toggleLikeCard, userProfile) {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
     const deleteButton = cardElement.querySelector('.card__delete-button');
     const likeButtonCard = cardElement.querySelector('.card__like-button');
