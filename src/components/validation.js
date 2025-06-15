@@ -10,7 +10,7 @@ export {enableValidation, clearValidation}
 function showError(formElement, inputElement, errorMessage, config) {
     const errorElement = formElement.querySelector(`.${inputElement.name}-error`)
     inputElement.classList.add(config.inputErrorClass)
-    errorElement.classList.add('popup__input-error_active')
+    errorElement.classList.add(config.inputErrorActive)
     errorElement.textContent = errorMessage
 }
 
@@ -23,7 +23,7 @@ function showError(formElement, inputElement, errorMessage, config) {
 function hideError(formElement, inputElement, config) {
     const errorElement = formElement.querySelector(`.${inputElement.name}-error`)
     inputElement.classList.remove(config.inputErrorClass)
-    errorElement.classList.remove('popup__input-error_active')
+    errorElement.classList.remove(config.inputErrorActive)
     errorElement.textContent = ''
 }
 

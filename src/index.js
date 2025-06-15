@@ -55,7 +55,7 @@ const config = {
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'button_inactive',
     inputErrorClass: 'popup__input_type_error',
-    inputErrorActive: '.popup__input-error_active',
+    inputErrorActive: 'popup__input-error_active',
 }
 
 console.log(config.submitButtonSelector)
@@ -114,7 +114,9 @@ function handleAvatarSubmitProfile(evt) {
         .catch((err) => {
             console.log(err)
             buttonSubmitAvatar.disabled = false
-            renderLoading(false, buttonSubmitAvatar)
+        })
+        .finally(() => {
+            renderLoading(false, buttonSubmitProfile)
         })
 }
 
@@ -191,7 +193,8 @@ function handleFormSubmitProfile(evt) {
         })
         .catch((err) => {
             console.log(err)
-            buttonSubmitProfile.disabled = false
+        })
+        .finally(() => {
             renderLoading(false, buttonSubmitProfile)
         })
 }
@@ -232,7 +235,9 @@ function makeNewCard(evt) {
         .catch((err) => {
             console.log(err)
             buttonSubmitCard.disabled = false
-            renderLoading(false, buttonSubmitCard)
+        })
+        .finally(() => {
+            renderLoading(false, buttonSubmitProfile)
         })
 }
 
